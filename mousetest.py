@@ -1,7 +1,6 @@
 import struct
 import time
 import sys
-sys.path.append('/home/jon/scripts');
 import console
 import curses
 
