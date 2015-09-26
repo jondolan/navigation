@@ -1,28 +1,70 @@
 import struct
 import time
+import sys
+sys.path.append('/home/jon/scripts');
+import console
+import curses
 
-file = open( "/dev/input/mice", "rb" );
+_mouse0 = open( "/dev/input/mouse0", "rb" );
+_mouse1 = open( "/dev/input/mouse1", "rb" );
 
-start_time = time.time();
-clicksX = 0;
-clicksY = 0;
+_startTime = time.time(); # start of script execution
+_deltaX = 0;
+_deltaY = 0;
+_maxX = 0;
+_maxY = 0;
+_winScaleX = 50; #console.getTerminalSize()[0] / 10;
+_winScaleY = 50; #console.getTerminalSize()[1] / 10;
+_countX = console.getTerminalSize()[0] / 2;
+_countY = console.getTerminalSize()[1] / 2;
 
-def getMouseEvent():
-  global clicksX, clicksY;
-  buf = file.read(3); # read in from /dev/input/mice
-  button = ord( buf[0] ); # changes this into an understandable number - 1 = left button, 2 = right button, 4 = middle button, etc
-  #print(button)
-  bLeft = button & 0x1;
-  bMiddle = ( button & 0x4 ) > 0;
-  bRight = ( button & 0x2 ) > 0;
-  x,y = struct.unpack( "bb", buf[1:] );
-  clicksX += x;
-  clicksY += y;
-  # return stuffs
+window = curses.initscr();
+
+def getMouseMovement(mouse):
+	_fIn = mouse.read(3);
+	return struct.unpack("bb", _fIn[1:]);
 
 while( 1 ):
-  start_time_loop = time.time();
-  getMouseEvent();
-  #print(time.time() - start_time_loop);
-  print ("Total x: %d, y: %d\n" % (clicksX, clicksY) );
+	_x, _y = getMouseMovement(_mouse1);
+	if _x > _maxX:
+        	_maxX = _x;
+	if _y > _maxY:
+		 _maxY = _y;
+
+	if (_countX > console.getTerminalSize()[0] - 5 | _countX < 5):
+		exit();
+
+	if abs(_deltaX) > _winScaleX:
+        	#print("Draw X at (" + str(_countX) + "," + str(_countY) + ")");
+		if (_deltaX > 0):
+			window.addch(_countY, _countX, '>');
+			_countX += 1;
+		else:
+			window.addch(_countY, _countX, '<');
+                	_countX -= 1;
+	
+        	_deltaX = 0;
+			
+	else:
+        	_deltaX += _x;
+
+	if abs(_deltaY) > _winScaleY:
+        	#print("Draw Y at (" + str(_countX) + "," + str(_countY) + ")");
+		if (_deltaY > 0):
+                	window.addch(_countY, _countX, '^');
+                	_countY -= 1;
+        	else:
+                	window.addch(_countY, _countX, 'v');
+                	_countY += 1;
+
+        	_deltaY = 0;
+
+	else:
+        	_deltaY += _y;
+
+
+	window.refresh();
+
+
 file.close();
+curses.endwin();
