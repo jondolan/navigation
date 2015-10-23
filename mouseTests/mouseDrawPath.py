@@ -1,7 +1,7 @@
 import struct
 import time
 import sys
-import console
+import libraries.console
 import curses
 
 _mouse0 = open( "/dev/input/mouse0", "rb" );
@@ -14,8 +14,8 @@ _maxX = 0;
 _maxY = 0;
 _winScaleX = 50; #console.getTerminalSize()[0] / 10;
 _winScaleY = 50; #console.getTerminalSize()[1] / 10;
-_countX = console.getTerminalSize()[0] / 2;
-_countY = console.getTerminalSize()[1] / 2;
+_countX = libraries.console.getTerminalSize()[0] / 2;
+_countY = libraries.console.getTerminalSize()[1] / 2;
 
 window = curses.initscr();
 
@@ -30,7 +30,7 @@ while( 1 ):
 	if _y > _maxY:
 		 _maxY = _y;
 
-	if (_countX > console.getTerminalSize()[0] - 5 | _countX < 5):
+	if (_countX > libraries.console.getTerminalSize()[0] - 5 | _countX < 5):
 		exit();
 
 	if abs(_deltaX) > _winScaleX:
