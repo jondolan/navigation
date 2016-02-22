@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'IEEESim.ui'
 #
-# Created: Tue Feb 16 20:00:27 2016
+# Created: Mon Feb 22 00:23:57 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,13 +26,13 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(960, 960)
+        MainWindow.resize(1440, 1440)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(960, 960))
+        MainWindow.setMinimumSize(QtCore.QSize(1440, 1440))
         MainWindow.setMaximumSize(QtCore.QSize(9600, 10000))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -41,12 +41,11 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(25)
         self.label.setFont(font)
-        self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label.setObjectName(_fromUtf8("label"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 42))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1440, 42))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuIEEE_Simulator = QtGui.QMenu(self.menubar)
         self.menuIEEE_Simulator.setObjectName(_fromUtf8("menuIEEE_Simulator"))

@@ -10,8 +10,8 @@ _deltaY = 0
 #increment = 0
 
 def getMouseMovement(mouse):
-        _fIn = mouse.read(3);
-        return struct.unpack("bb", _fIn[1:]);
+    _fIn = mouse.read(3);
+    return struct.unpack("bb", _fIn[1:]);
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -25,13 +25,13 @@ print 'Socket Created on port ' + str(port)
 
 try:
     while ( 1 ):
-	#_x, _y = getMouseMovement(_mouse)
-	#_deltaX += _x
-	#_deltaY += _y
-    s.sendto(str(getMouseMovement(_mouse)), (host, port))
-	#s.sendto(str((_x, _y)), (host, port))
-	#increment+=1
-	#print str((_deltaX, _deltaY)) 
+    	#_x, _y = getMouseMovement(_mouse)
+    	#_deltaX += _x
+    	#_deltaY += _y
+        s.sendto(str(getMouseMovement(_mouse)), (host, port))
+    	#s.sendto(str((_x, _y)), (host, port))
+    	#increment+=1
+    	#print str((_deltaX, _deltaY)) 
 
 except socket.gaierror:
     #could not resolve

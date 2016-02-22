@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>960</height>
+    <width>1440</width>
+    <height>1440</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>960</width>
-    <height>960</height>
+    <width>1440</width>
+    <height>1440</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -49,9 +49,6 @@
     <property name="text">
      <string>^</string>
     </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
@@ -62,7 +59,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>960</width>
+     <width>1440</width>
      <height>42</height>
     </rect>
    </property>

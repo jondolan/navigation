@@ -6,7 +6,7 @@
 # 	force		(optional)		force copy/install of packages
 # 			  			 		default behavior is to copy and install ONLY if directory IEEEInstallFiles does not exist
 #
-#   run			(optional)		autorun the server code (autorun.py)
+#	run		(optional)		autorun the server code (autorun.py)
 
 FORCE=$( echo $@ | grep -ic 'force' )
 RUN=$( echo $@ | grep -ic 'run' )
@@ -31,7 +31,7 @@ if [ -d "$IDIR" ]; then # if directory exists
 		if [ $RUN -gt 0 ]; then # if run is passed
 			echo 'Autorunning...'
 			cd $CDIR
-			python autorun.py
+			python client.py
 			exit
 		fi
 	fi
