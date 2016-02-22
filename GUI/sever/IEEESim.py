@@ -8,12 +8,14 @@ import sys
 
 HOST = ''
 PORT = 8888
+
 _deltaX = 0
 _deltaY = 0
-_dotsPerInch = 184.8375
-_increment = 0
+#_dotsPerInch = 184.8375
+_dotsPerInch = 10 # demo, for speed
 _scale = 15
 _size = 96 * _scale
+#_increment = 0
 
 startArea = ((0,0),(0,30),(20,30),(20,0),(0,0))
 tunnel = ((0,30),(0,45),(18,45),(18,30),(0,30))
@@ -32,8 +34,7 @@ areaB = ((32,84),(32,94),(64,94),(64,84),(32,84))
 areaC = ((64,84),(64,94),(96,94),(96,84),(64,84))
 
 board = (startArea, tunnel, truck, boat, loadingA, loadingB, loadingC, center, box1, box2, box3, box4, areaA, areaB, areaC)
-		 
-
+		
  
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.settimeout(0.001)
@@ -42,7 +43,7 @@ try:
     s.bind((HOST, PORT))
 except socket.error as msg:
     print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
-    sys.exit()
+    sys.exit() # todo, don't exit, retry?
      
 
 print 'Socket now listening on port ' + str(PORT)
@@ -59,7 +60,7 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
 	def eventFilter(self,target,event):
 		global _deltaX, _deltaY
 		if(event.type()==QEvent.MouseButtonPress):
-			_deltaX, _deltaY = event.x()*_dotsPerInch, (_size-event.y())*_dotsPerInch
+			_deltaX, _deltaY = event.x()*_dotsPerInch, (_size-event.y())*_dotsPerInch # for demo only
 			self.updateUi()
 			print "Moving robot to (", str(event.x()), ", ", event.y(), ")..."
 			return True
@@ -91,7 +92,6 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
 			_deltaY+=msg[1]
 #			_increment+=1
 		self.label.setGeometry(QRect(_deltaX/_dotsPerInch, _size-40-(_deltaY/_dotsPerInch), 50, 40))
-		print _deltaX
 		QTimer.singleShot(1, self.updateUi)
 
 if __name__ == "__main__":

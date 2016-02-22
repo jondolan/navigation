@@ -2,12 +2,14 @@ import socket
 import sys
 import struct
 
+#HOST = '143.215.94.205'
+HOST = '192.168.7.1'
+PORT = 8888
+
 _mouse = open( "/dev/input/mice", "rb" );
-host = '143.215.94.205'
-port = 8888
 _deltaX = 0
 _deltaY = 0
-#increment = 0
+#_increment = 0
 
 def getMouseMovement(mouse):
     _fIn = mouse.read(3);
@@ -21,19 +23,21 @@ except socket.error, msg:
     print 'Failed to create socket. Error code: ' + str(msg[0]) + ' , Error message : ' + msg[1]
     sys.exit(); # todo - not exit, retry?
 
-print 'Socket Created on port ' + str(port)
+print 'Socket Created on PORT ' + str(PORT)
 
 try:
-    while ( 1 ):
-    	#_x, _y = getMouseMovement(_mouse)
-    	#_deltaX += _x
-    	#_deltaY += _y
-        s.sendto(str(getMouseMovement(_mouse)), (host, port))
-    	#s.sendto(str((_x, _y)), (host, port))
-    	#increment+=1
-    	#print str((_deltaX, _deltaY)) 
+    while ( 1 ): 
+        s.sendto(str(getMouseMovement(_mouse)), (HOST, PORT))
+
+        # for more verbose testing
+        #_x, _y = getMouseMovement(_mouse)
+        #_deltaX += _x
+        #_deltaY += _y
+        #s.sendto(str((_x, _y)), (HOST, PORT))
+        #_increment+=1
+        #print str(_increment), ": ", str((_deltaX, _deltaY))
+
 
 except socket.gaierror:
-    #could not resolve
-    print 'Hostname could not be resolved. Exiting'
+    print 'Hostname could not be resolved'
     sys.exit()
