@@ -4,7 +4,6 @@ import struct
 import numpy
 from math import *
 import thread
-import time
 
 #HOST = '143.215.94.205'
 HOST = '192.168.7.1'
@@ -17,12 +16,11 @@ if (TESTING):
     print 'Socket Created on PORT ' + str(PORT)
 
 # global variables
-_mouseL = open( "/dev/input/mouse1", "rb" );    #open mouse on top right
-_mouseR = open( "/dev/input/mouse0", "rb" );    #open mouse on top left
+_mouseL = open( "/dev/input/mouse0", "rb" );    #open mouse on top right
+_mouseR = open( "/dev/input/mouse1", "rb" );    #open mouse on top left
 
-fix = 0.560709878 # constant value to fix data, determined experimentally by pushing robot against wall, rotating 90 degrees, pushing against wall again, and dividing measured angle by 90
-rr = 2.125  # raw radius - distance from center of robot to optical sensor (symmetric)
-r = rr * fix # fixed radius
+fix = 0.560709878 #  constant value to fix data, determined experimentally by pushing robot against wall, rotating 90 degrees, pushing against wall again, and dividing measured angle by 90
+r = 2.125 * fix # distance from center of robot to optical sensor (symmetric)
 scale = 1.0/1515.0 # dpi
 
 dxl = 0.0 # delta of left mouse for each iteration
@@ -39,11 +37,6 @@ xw = 0 # x world (center)
 yw = 0 # y world (center)
 heading = 0 # heading of the robot (axis that runs through the 2 sensors in releation to x axis, perpendicular to direction robot is facing)
 
-def resetValues():
-    global xw, yw, heading, dxl, dyl, dxr, dyr, lupdate, rupdate, r, rr, fix
-    xw = yw = heading = dxl = dyl = dxr = dyr = 0
-    lupdate = rupdate = False
-    r = rr * fix
 
 def getMouseMovement(mouse): # read mouse data from /dev/input/mouseX and unpack it into an (dx,dy) coordinate pair
     _fIn = mouse.read(3)
@@ -81,28 +74,9 @@ def updateMouseR():
         dxr, dyr = getMouseMovement(_mouseR)
         rupdate = True
 
+
 thread.start_new_thread(updateMouseR, ())
 thread.start_new_thread(updateMouseL, ())
-# calibration, triggered by passing "cal" to the script
-if len(sys.argv) > 1:
-    i = 0
-    fix = 1
-    TESTING = False
-    print "Place the robot against a wall..."
-    while i < 3:
-        raw_input("Press enter when you're ready to rotate the robot 90 degrees...")
-        resetValues()
-        print "Rotate...you have 10 seconds..."
-        start = time.time()
-        while (time.time() - start) < 10:
-            if (lupdate & rupdate): # if left and right updated (or timeout?)
-                updatePosition()
-        if (i == 0):
-            fix = abs(heading) / (pi/2)
-        else:
-            fix = fix / (abs(heading) / (pi/2))
-        print "Measured: ", degrees(heading), "This time: ", abs(heading) / (pi/2), "Calibration constant: ", fix
-        i+=1
 while 1:
     if (lupdate & rupdate): # if left and right updated (or timeout?)
         updatePosition()

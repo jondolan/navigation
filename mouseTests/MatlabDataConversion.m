@@ -1,5 +1,4 @@
-
-function[delXr, delYr, delOmeg] = miceCoeff(theta1, phi1, theta2, phi2, x1,y1, x2, y2)
+function[delXr, delYr, delOmeg] = MatlabDataConversion(theta1, phi1, theta2, phi2, x1,y1, x2, y2)
 [theta1, phi1, theta2, phi2] = radians(theta1, phi1, theta2, phi2); 
 r1 = 4;
 r2 = 4;
@@ -26,9 +25,9 @@ pInvA = pinv(A);
 %x1, x2, y1, y2 are the sensor measurements
 motionCoefs = pInvA * [x1; y1; x2; y2]; 
 
-delXr = motionCoefs(1);
-delYr = motionCoefs(2);
-delOmeg = motionCoefs(3); 
+delXr = motionCoefs(1)
+delYr = motionCoefs(2)
+delOmeg = motionCoefs(3)
 end
 
 function [theta1, phi1, theta2, phi2] = radians(theta1, phi1, theta2, phi2)

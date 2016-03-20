@@ -14,7 +14,7 @@ def getMouseMovement(mouse):
 _mouse = open( "/dev/input/mice", "rb" ); # open the mouse
 _deltaX = 0;
 _deltaY = 0;
-_dotsPerInch = 1848.375;
+_dotsPerInch = 1515.0;
 #fOut = open('movement.txt', 'w');
 
 

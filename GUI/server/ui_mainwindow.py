@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'IEEESim.ui'
 #
-# Created: Mon Feb 22 00:23:57 2016
+# Created: Sun Mar 13 15:53:28 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,13 +36,9 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(9600, 10000))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 920, 50, 40))
-        font = QtGui.QFont()
-        font.setPointSize(25)
-        self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label.setObjectName(_fromUtf8("label"))
+        self.robot = QtGui.QWidget(self.centralwidget)
+        self.robot.setGeometry(QtCore.QRect(0, 1298, 100, 100))
+        self.robot.setObjectName(_fromUtf8("robot"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1440, 42))
@@ -60,7 +56,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.label.setText(_translate("MainWindow", "^", None))
         self.menuIEEE_Simulator.setTitle(_translate("MainWindow", "IEEE Simulator", None))
         self.menuTest.setTitle(_translate("MainWindow", "Test", None))
 

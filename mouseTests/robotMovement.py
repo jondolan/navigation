@@ -1,3 +1,10 @@
+# In [7], several assumptions are made about the characteristics of the mouse sensors which are used to detect and
+# correct for errors. In general, mouse sensors do not measure a distance greater than the actual distance traveled. The
+# optical flow algorithm may miss counts due to poor focus or insufficient frame overlap, but it will not overestimate
+# the motion. Thus, when there is disagreement between one or more sensors, the sensor with the higher measurement
+# is probably correct.
+
+
 # import libraries
 #import mouse
 # library for retreiving mouse data

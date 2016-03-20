@@ -24,12 +24,12 @@ def miceCoeff(theta1, phi1, theta2, phi2, x1, y1, x2, y2):
 	pInvA = numpy.linalg.pinv(A)
 
 	#x1, x2, y1, y2 are the sensor measurements
-	motionCoefs = numpy.dot(pInvA, [x1, y1, x2, y2]);
+	motionCoefs = numpy.dot(pInvA, [[x0], [y0], [x1], [y1]]);
 
-	delXr = motionCoefs[0]
-	delYr = motionCoefs[1]
-	delOmeg = motionCoefs[2]
+	delXr = motionCoefs[0,0]
+	delYr = motionCoefs[1,0]
+	delOmeg = motionCoefs[2,0]
 
 	return [delXr, delYr, delOmeg]
 
-print miceCoeff(50, 50, 50, 50, 50, 50, 50, 50) # test case 1
+print miceCoeff(45, 45, -45, 45, 50, 0, 50, 0) # test case 1
