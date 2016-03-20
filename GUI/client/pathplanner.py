@@ -65,28 +65,31 @@ def travelPath(path): # expects path in the form of origin, point1, point2 and e
     if (checkForCollisions(path[0:1]) == True):
         sendMotorCommand(path[1][0], path[1][1])
     # else: we cannot travel on this path, checkForCollisions should pass back the source of collision to adjust off of
-        
     travelPath(path[1:]) # recurse
 
 def sendMotorCommand(x, y): # expects a global x, y (absolute) (fakes it currently)
     global xw, yw
+    x = xw - x
+    y = yw - y
     change = -0.1
-    if (round(xw - x, 2) > 0.0) | (round(yw - y, 2) > 0.0): # also need to account for change that is less than 0.1, justsubtract that value
+    if (x < 0.0) | (y < 0.0): # also need to account for change that is less than 0.1, justsubtract that value
         change = -change
-    if (x == 0.0):
-        while abs(round(yw - y,2)) != 0.0:
-            yw -= change
+    if (round(x, 2) == 0.0):
+        while round(y, 2) != 0.0:
+            yw += change
+            y += change
             sendData()
             time.sleep(0.01)
     else:
-        while abs(round(xw - x,2)) != 0.0:
-            xw -= change
+        while round(x,2) != 0.0:
+            xw += change
+            x += change
             sendData()
             time.sleep(0.01)
 
 
 
-moveRobot(45.0, 45.0)
+moveRobot(25.0, 15.0)
 
 # while 1: # nav loop
 #     xw += 0.1
