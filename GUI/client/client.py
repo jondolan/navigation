@@ -7,7 +7,8 @@ import thread
 import time
 
 #HOST = '143.215.94.205'
-HOST = '192.168.7.1'
+#HOST = '192.168.7.1'
+HOST = ''
 PORT = 8888
 TESTING = True # True enables data send to server GUI on specified host:port
 if (TESTING):
@@ -18,12 +19,13 @@ if (TESTING):
 
 # global variables
 _mouseL = open( "/dev/input/mouse1", "rb" );    #open mouse on top right
-_mouseR = open( "/dev/input/mouse0", "rb" );    #open mouse on top left
+_mouseR = open( "/dev/input/mouse3", "rb" );    #open mouse on top left
 
 fix = 0.560709878 # constant value to fix data, determined experimentally by pushing robot against wall, rotating 90 degrees, pushing against wall again, and dividing measured angle by 90
 rr = 2.125  # raw radius - distance from center of robot to optical sensor (symmetric)
 r = rr * fix # fixed radius
 scale = 1.0/1515.0 # dpi
+scale = 0.1
 
 dxl = 0.0 # delta of left mouse for each iteration
 dyl = 0.0
@@ -51,7 +53,8 @@ def getMouseMovement(mouse): # read mouse data from /dev/input/mouseX and unpack
 
 def sendData():
     global xw, yw, heading, s, HOST, PORT
-    # s.sendto(str((_deltaX, _deltaY, _deltaX)), (HOST, PORT))
+    s.sendto(str((xw, yw, heading)), (HOST, PORT))
+#    s.sendto(str((_deltaX, _deltaY, _deltaX)), (HOST, PORT))
     print '({:.3}, {:.3}): {:.10} degrees.'.format(xw, yw, degrees(heading))
 
 def updatePosition():
